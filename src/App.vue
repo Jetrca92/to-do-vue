@@ -1,26 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<NavBar />
+	<ul class="list-group">
+		<TaskList
+			v-for="(task, index) in taskList"
+			:key="index"
+			:task="task"
+		></TaskList>
+	</ul>
 </template>
+	
+<script setup>
+import { ref } from 'vue'
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+import NavBar from "./components/NavBar"
+import TaskList from "./components/TaskList"
+const today = new Date()
+const taskList = ref([
+	{ name: "Learn Vue!", date: today, isUrgent: false },
+	{ name: "Go for a run", date: today, isUrgent: true },
+])
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
