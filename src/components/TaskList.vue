@@ -1,32 +1,34 @@
 <script setup>
-import { defineProps, onMounted } from 'vue'
-const props = defineProps({
-    task: Object
-})
+import { defineProps } from 'vue'
 
-onMounted(() => {
-    const dropdownToggleList = document.querySelectorAll('.dropdown-toggle');
-    
-    // Iterate over each dropdown toggle
-    dropdownToggleList.forEach(dropdownToggle => {
-        dropdownToggle.addEventListener('click', function () {
-            const parent = this.closest('.dropdown');
-            const dropdownMenu = parent.querySelector('.dropdown-menu');
-            
-            // Toggle class to show/hide dropdown menu
-            dropdownMenu.classList.toggle('show');
-        });
-    });
+const props = defineProps({
+    task: Object,
+    taskList: Array,
+    deleteTask: Function,
 })
+const toggleCompleted = (task) => {
+    task.completed = !task.completed
+}
 </script>
 
 <template>
     <li class="list-group-item">
         <div class="task-item" style="text-decoration: none;">
             <div class="list-checkmark me-3">
-                <img class="unchecked-btn clickable" src="../assets/cb84809e138503e15457.png" alt="check icon">
+                <img 
+                    class="clickable"
+                    :class="{ 'unchecked-btn': !props.task.completed, 'checked-btn': props.task.completed }"
+                    src="../assets/cb84809e138503e15457.png" 
+                    alt="check icon"
+                    @click="toggleCompleted(props.task)"
+                >
             </div>
-            <div class="list-content">
+            <div 
+                class="list-content"
+                :class="{ 
+					strikeout: props.task.completed,
+                }"
+            >
                 <div class="d-flex justify-content-between">
                     <div>
                         <b class="me-3">{{ props.task.name }}</b>
@@ -39,7 +41,11 @@ onMounted(() => {
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Delete</button>
                         <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="#">Delete Task</a>
+                            <a
+                                class="dropdown-item" 
+                                href="#"
+                                @click="props.deleteTask(props.task)"
+                            >Delete Task</a>
                         </li>
                     </ul>
                     </div>
@@ -64,5 +70,9 @@ onMounted(() => {
 .btn-container .btn-outline-primary:active {
     background-color: #3D9AE2 !important;
     border-color: #3D9AE2 !important;
+}
+
+.strikeout {
+    text-decoration: line-through;
 }
 </style>
