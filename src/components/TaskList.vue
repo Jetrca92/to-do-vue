@@ -3,7 +3,6 @@ import { defineProps } from 'vue'
 
 const props = defineProps({
     task: Object,
-    taskList: Array,
     deleteTask: Function,
 })
 const toggleCompleted = (task) => {

@@ -1,5 +1,12 @@
 <script setup>
-    
+import { ref, defineEmits } from 'vue'
+
+const buttonText = ref('+ Add Task')
+const emit = defineEmits(['toggle-add-task-form']);
+const toggleAddTaskForm = () => {
+    buttonText.value = buttonText.value === '+ Add Task' ? 'Cancel' : '+ Add Task';
+    emit('toggle-add-task-form');
+};
 </script>
 
 <template>
@@ -16,7 +23,7 @@
             <button class="btn btn-sm btn-outline-primary mx-1" id="inbox">Inbox</button>
             <button class="btn btn-sm btn-outline-primary mx-1" id="today">Today</button>
             <button class="btn btn-sm btn-outline-primary mx-1" id="upcoming">Upcoming</button>
-            <button class="btn btn-sm btn-outline-primary mx-1" id="addTask">+ Add Task</button>
+            <button class="btn btn-sm btn-outline-primary mx-1" id="addTask" @click="toggleAddTaskForm">{{ buttonText }}</button>
         </div>
     </header>
     <hr>
