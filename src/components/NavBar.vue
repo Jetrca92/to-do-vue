@@ -4,7 +4,6 @@ import { ref, defineEmits } from 'vue'
 const buttonText = ref('+ Add Task')
 const emit = defineEmits(['toggle-add-task-form']);
 const toggleAddTaskForm = () => {
-    buttonText.value = buttonText.value === '+ Add Task' ? 'Cancel' : '+ Add Task';
     emit('toggle-add-task-form');
 };
 </script>

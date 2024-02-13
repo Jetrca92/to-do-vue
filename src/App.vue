@@ -10,6 +10,7 @@
 		></TaskList>
 	</ul>
 	<AddTask
+		@toggle-add-task-form="toggleAddTaskForm"
 		v-if="showAddTaskForm"
 		:createNewTask="createNewTask"
 	></AddTask>
@@ -26,6 +27,7 @@ const taskList = ref([
 	{ name: "Learn Vue!", date: today, isUrgent: false, completed: false },
 	{ name: "Go for a run", date: today, isUrgent: true, completed: false },
 ])
+
 const deleteTask = (task) => {
     const index = taskList.value.findIndex((item) => item === task);
     const updatedTaskList = taskList.value.filter((item, i) => i !== index);
@@ -38,6 +40,5 @@ const createNewTask = (taskName, date, taskUrgent) => {
 const showAddTaskForm = ref(false)
 const toggleAddTaskForm = () => {
     showAddTaskForm.value = !showAddTaskForm.value;
-    
 }
 </script>

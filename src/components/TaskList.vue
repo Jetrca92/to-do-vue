@@ -11,7 +11,7 @@ const toggleCompleted = (task) => {
 </script>
 
 <template>
-    <li class="list-group-item">
+    <li class="list-group-item" :class="{'list-group-item-warning': task.isUrgent}">
         <div class="task-item" style="text-decoration: none;">
             <div class="list-checkmark me-3">
                 <img 
@@ -34,7 +34,7 @@ const toggleCompleted = (task) => {
                         <span v-if="props.task.isUrgent">(Urgent)</span>
                     </div>
                     <div>
-                        <span>{{ props.task.date }}</span>
+                        {{ props.task.date }}
                     </div>
                     <div class="dropdown btn-container">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Delete</button>

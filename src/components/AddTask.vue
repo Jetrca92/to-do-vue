@@ -1,5 +1,10 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineEmits, computed } from 'vue'
+
+const emit = defineEmits(['toggle-add-task-form']);
+const toggleAddTaskForm = () => {
+    emit('toggle-add-task-form');
+};
 
 const props = defineProps({
     createNewTask: Function,
@@ -7,6 +12,9 @@ const props = defineProps({
 const taskName = ref('')
 const date = ref('')
 const taskUrgent = ref(false)
+const isFormInvalid = computed(() => {
+    return !taskName.value || !date.value
+})
 </script>
 <template>
     <h2 class="h2"><span class="gray">Add Task</span></h2>
@@ -40,11 +48,16 @@ const taskUrgent = ref(false)
             >
             <label class="form-check-label" for="task-urgent">Check if task is urgent</label>
         </div>
-        <div class="btn-container">
+        <div class="btn-container d-flex gap-3">
             <button 
                 class="btn btn-sm btn-outline-primary"
                 @click.prevent="props.createNewTask(taskName, date, taskUrgent)"
+                :disabled="isFormInvalid"
             >Submit</button>
+            <button 
+                class="btn btn-sm btn-outline-primary"
+                @click.prevent="toggleAddTaskForm"
+            >Cancel</button>
         </div>
     </form>
 </template>
