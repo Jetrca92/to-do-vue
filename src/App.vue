@@ -1,23 +1,22 @@
 <template>
 	<NavBar 
 		@toggle-state="toggleState"
-		@toggle-add-task-form="toggleAddTaskForm"
 	/>
 	<div v-if="showIndex">
-		<ul class="list-group" v-if="!showAddTaskForm">
+		<ul class="list-group">
 		<h2 class="h2"><span class="gray">All Tasks</span></h2>
-		<TaskList
+		<div v-if="taskList.length > 0">
+			<TaskList
 			v-for="(task, index) in taskList"
 			:key="index"
 			:task="task"
 			:deleteTask="deleteTask"
-		></TaskList>
+			></TaskList>
+		</div>
+		<div v-else>
+			No tasks.
+		</div>
 		</ul>
-		<AddTask
-			@toggle-add-task-form="toggleAddTaskForm"
-			v-if="showAddTaskForm"
-			:createNewTask="createNewTask"
-		></AddTask>
 	</div>
 	<div v-if="showToday">
 		<ul class="list-group">
@@ -50,6 +49,13 @@
 			<p>No upcoming tasks.</p>
 		</div>
 		</ul>
+	</div>
+	<div v-if="showAddTaskForm">
+		<AddTask
+			@toggle-state="toggleState"
+			v-if="showAddTaskForm"
+			:createNewTask="createNewTask"
+		></AddTask>
 	</div>
 </template>
 	
@@ -92,18 +98,16 @@ const createNewTask = (taskName, date, taskUrgent) => {
 	const dateObject = new Date(date)
 	taskList.value.push({ name: taskName, date: dateObject, isUrgent: taskUrgent, completed: false })
 	showAddTaskForm.value = false
+	showIndex.value = true
 }
 const showAddTaskForm = ref(false)
 const showIndex = ref(true)
 const showToday = ref(false)
 const showUpcoming = ref(false)
-const toggleAddTaskForm = () => {
-    showAddTaskForm.value = !showAddTaskForm.value;
-}
 const toggleState = (state) => {
     showIndex.value = state === 'inbox'
 	showToday.value = state === 'today'
 	showUpcoming.value = state === 'upcoming'
-	showAddTaskForm.value = false
+	showAddTaskForm.value = state === 'addTask'
 }
 </script>

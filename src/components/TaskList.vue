@@ -34,7 +34,7 @@ const toggleCompleted = (task) => {
                         <span v-if="props.task.isUrgent">(Urgent)</span>
                     </div>
                     <div>
-                        {{ props.task.date }}
+                        {{ new Date(props.task.date).toLocaleString("en-SI", { year: 'numeric', month: '2-digit', day: '2-digit' }) }}
                     </div>
                     <div class="dropdown btn-container">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Delete</button>

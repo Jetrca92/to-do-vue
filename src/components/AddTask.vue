@@ -1,9 +1,9 @@
 <script setup>
 import { ref, defineProps, defineEmits, computed } from 'vue'
 
-const emit = defineEmits(['toggle-add-task-form']);
-const toggleAddTaskForm = () => {
-    emit('toggle-add-task-form');
+const emit = defineEmits(['toggle-state']);
+const toggleState = (state) => {
+    emit('toggle-state', state);
 };
 
 const props = defineProps({
@@ -56,7 +56,7 @@ const isFormInvalid = computed(() => {
             >Submit</button>
             <button 
                 class="btn btn-sm btn-outline-primary"
-                @click.prevent="toggleAddTaskForm"
+                @click.prevent="toggleState('inbox')"
             >Cancel</button>
         </div>
     </form>
