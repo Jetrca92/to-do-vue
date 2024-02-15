@@ -87,16 +87,6 @@ const deleteTask = (task) => {
     const index = taskList.value.findIndex((item) => item === task);
     const updatedTaskList = taskList.value.filter((item, i) => i !== index);
     taskList.value = updatedTaskList;
-
-	// Check if the deleted task is in taskListToday or taskListUpcoming and update
-    const isTaskToday = taskListToday.value.some((t) => t === task);
-    const isTaskUpcoming = taskListUpcoming.value.some((t) => t === task);
-    if (isTaskToday) {
-        taskListToday.value = filterTasksByDate(today);
-    }
-    if (isTaskUpcoming) {
-        taskListUpcoming.value = filterTasksByDate(today, true);
-    }
 }
 const createNewTask = (taskName, date, taskUrgent) => {
 	const dateObject = new Date(date)
