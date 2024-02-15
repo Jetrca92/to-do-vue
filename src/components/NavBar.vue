@@ -2,10 +2,12 @@
 import { ref, defineEmits } from 'vue'
 
 const buttonText = ref('+ Add Task')
-const emit = defineEmits(['toggle-add-task-form']);
+const emit = defineEmits(['toggle-add-task-form', 'toggle-state'])
 const toggleAddTaskForm = () => {
-    emit('toggle-add-task-form');
+    emit('toggle-add-task-form')
 };
+const toggleState = (state) =>
+    emit('toggle-state', state)
 </script>
 
 <template>
@@ -19,9 +21,9 @@ const toggleAddTaskForm = () => {
             </h2>
         </div>
         <div class="btn-container">
-            <button class="btn btn-sm btn-outline-primary mx-1" id="inbox">Inbox</button>
-            <button class="btn btn-sm btn-outline-primary mx-1" id="today">Today</button>
-            <button class="btn btn-sm btn-outline-primary mx-1" id="upcoming">Upcoming</button>
+            <button class="btn btn-sm btn-outline-primary mx-1" id="inbox" @click="toggleState('inbox')">Inbox</button>
+            <button class="btn btn-sm btn-outline-primary mx-1" id="today" @click="toggleState('today')">Today</button>
+            <button class="btn btn-sm btn-outline-primary mx-1" id="upcoming" @click="toggleState('upcoming')">Upcoming</button>
             <button class="btn btn-sm btn-outline-primary mx-1" id="addTask" @click="toggleAddTaskForm">{{ buttonText }}</button>
         </div>
     </header>

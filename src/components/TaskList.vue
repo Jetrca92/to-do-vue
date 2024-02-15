@@ -43,7 +43,7 @@ const toggleCompleted = (task) => {
                             <a
                                 class="dropdown-item" 
                                 href="#"
-                                @click="props.deleteTask(props.task)"
+                                @click.prevent="props.deleteTask(props.task)"
                             >Delete Task</a>
                         </li>
                     </ul>
