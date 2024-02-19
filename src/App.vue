@@ -60,6 +60,7 @@
 </template>
 	
 <script setup>
+// First time this
 import { ref, computed } from 'vue'
 import NavBar from "./components/NavBar"
 import TaskList from "./components/TaskList"
